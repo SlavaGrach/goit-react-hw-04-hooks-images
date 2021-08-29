@@ -7,8 +7,9 @@ const ImageGallery = ({ images, onSelect }) => {
   return (
     <div>
       <List>
-        {images.map((image) => {
-          const { id, webformatURL, tags, largeImageURL } = image;
+        {images.map((img) => {
+          const { id, webformatURL, tags, largeImageURL } = img;
+
           return (
             <ImageGalleryItem
               onSelect={onSelect}
@@ -25,7 +26,14 @@ const ImageGallery = ({ images, onSelect }) => {
 };
 
 ImageGallery.propTypes = {
-  images: PropTypes.array,
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      webformatURL: PropTypes.string.isRequired,
+      largeImageURL: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  onSelect: PropTypes.func.isRequired,
 };
 
 export default ImageGallery;
