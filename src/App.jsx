@@ -33,10 +33,12 @@ export default function App() {
         setImages((prevImages) => {
           return [...prevImages, ...response];
         });
-        window.scrollTo({
-          top: document.documentElement.scrollHeight,
-          behavior: "smooth",
-        });
+        if (page > 1) {
+          window.scrollTo({
+            top: document.documentElement.scrollHeight,
+            behavior: "smooth",
+          });
+        }
       } catch (error) {
         setReqStatus("rejected");
         toast.warning(`Not Found any images by query: ${imageName}`);
@@ -46,7 +48,7 @@ export default function App() {
     fetchImages();
   }, [imageName, page]);
 
-  //отдельный хук на событие
+  //отдельный хук на событие нажатие ESC для закрытия модалки
   useEffect(() => {
     selectedImage && window.addEventListener("keydown", handlerPressKey);
   }, [selectedImage]);
